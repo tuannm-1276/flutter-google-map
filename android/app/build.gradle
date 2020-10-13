@@ -1,11 +1,4 @@
 
-// Read the API key from ./secure.properties into R.string.maps_api_key
-def secureProps = new Properties()
-if (file("../secure.properties").exists()) {
-    file("../secure.properties")?.withInputStream { secureProps.load(it) }
-}
-resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
-
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -46,6 +39,15 @@ android {
     }
 
     defaultConfig {
+
+        // Read the API key from ./secure.properties into R.string.maps_api_key
+        def secureProps = new Properties()
+        if (file("../secure.properties").exists()) {
+            file("../secure.properties")?.withInputStream { secureProps.load(it) }
+        }
+        resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
+
+
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "vn.tuannm.flutter_google_map"
         minSdkVersion 16
